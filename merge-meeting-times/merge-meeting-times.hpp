@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -51,10 +52,22 @@ public:
     }
 };
 
+bool compareStarts(const Meeting& m1, const Meeting& m2) {
+    return m1.getStartTime() < m2.getStartTime();
+}
+
 vector<Meeting> mergeRanges(const vector<Meeting>& meetings)
 {
-    // merge meeting ranges
-    
+    vector<Meeting> sortedMeetings(meetings);
+    sort(sortedMeetings.begin(), sortedMeetings.end(), compareStarts);
 
-    return meetings;
+    vector<Meeting> mergedMeetings;
+    mergedMeetings.push_back(sortedMeetings.front());
+    for(int i=0; i<sortedMeetings.size(); i++) {
+        Meeting& lastMergedMeeting = mergedMeetings.back();
+        if((sortedMeetings[i].getStartTime() <= lastMergedMeeting.getEndTime())) {
+            lastMergedMeeting.setEndTime(sortedMeetings[i].getEndTime() > lastMergedMeeting.getEndTime() ? sortedMeetings[i].getEndTime() : lastMergedMeeting.getEndTime());
+        } else mergedMeetings.push_back(sortedMeetings[i]);
+    }
+    return mergedMeetings;
 }
