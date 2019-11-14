@@ -1,5 +1,5 @@
 #include "../merge-meeting-times.h"
-#include "CuTest.h"
+#include "CuTest.c"
 
 #define countof(a) (sizeof(a)/sizeof((a)[0]))
 
