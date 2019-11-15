@@ -1,4 +1,5 @@
-
+#include "lest.hpp"
+#include "../reverse-string-in-place.hpp"
 
 const lest::test tests[] = {
     CASE("empty string") {
@@ -23,5 +24,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
