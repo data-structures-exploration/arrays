@@ -1,39 +1,45 @@
-// tests
+#include "../reverse-string-in-place.h"
+#include "CuTest.c"
 
-void emptyStringTest(Test *tc)
+void emptyStringTest(CuTest *tc)
 {
     const char *expected = "";
     char actual[] = "";
     reverse(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void singleCharacterStringTest(Test *tc)
+void singleCharacterStringTest(CuTest *tc)
 {
     const char *expected = "A";
     char actual[] = "A";
     reverse(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void longerStringTest(Test *tc)
+void longerStringTest(CuTest *tc)
 {
     const char *expected = "EDCBA";
     char actual[] = "ABCDE";
     reverse(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
 int main()
 {
-    TestSuite *tests = TestSuiteNew();
+    CuSuite *tests = CuSuiteNew();
+    CuString *output = CuStringNew();
 
     SUITE_ADD_TEST(tests, emptyStringTest);
     SUITE_ADD_TEST(tests, singleCharacterStringTest);
     SUITE_ADD_TEST(tests, longerStringTest);
 
-    TestSuiteRun(tests);
-    TestSuiteDelete(tests);
+    CuSuiteRun(tests);
+    CuSuiteSummary(tests, output);
+	CuSuiteDetails(tests, output);
+    printf("%s\n", output->buffer);
+    printf("Fail Count: %d\n", tests->failCount);
+    CuSuiteDelete(tests);
 
     return 0;
 }
