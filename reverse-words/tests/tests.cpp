@@ -1,4 +1,5 @@
-// tests
+#include "lest.hpp"
+#include "../reverse-words.hpp"
 
 const lest::test tests[] = {
     CASE("one word") {
@@ -41,5 +42,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
