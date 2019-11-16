@@ -1,56 +1,58 @@
-// tests
+#include "../reverse-words.h"
+#include "CuTest.c"
 
-void oneWordTest(Test *tc)
+void oneWordTest(CuTest *tc)
 {
     const char *expected = "vault";
     char actual[] = "vault";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void twoWordsTest(Test *tc)
+void twoWordsTest(CuTest *tc)
 {
     const char *expected = "cake thief";
     char actual[] = "thief cake";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void threeWordsTest(Test *tc)
+void threeWordsTest(CuTest *tc)
 {
     const char *expected = "get another one";
     char actual[] = "one another get";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void multipleWordsSameLengthTest(Test *tc)
+void multipleWordsSameLengthTest(CuTest *tc)
 {
     const char *expected = "the cat ate the rat";
     char actual[] = "rat the ate cat the";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void multipleWordsDifferentLengthsTest(Test *tc)
+void multipleWordsDifferentLengthsTest(CuTest *tc)
 {
     const char *expected = "chocolate bundt cake is yummy";
     char actual[] = "yummy is cake bundt chocolate";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
-void emptyStringTest(Test *tc)
+void emptyStringTest(CuTest *tc)
 {
     const char *expected = "";
     char actual[] = "";
     reverseWords(actual);
-    AssertStrEquals(tc, expected, actual);
+    CuAssertStrEquals(tc, expected, actual);
 }
 
 int main()
 {
-    TestSuite *tests = TestSuiteNew();
+    CuSuite *tests = CuSuiteNew();
+    CuString *output = CuStringNew();
 
     SUITE_ADD_TEST(tests, oneWordTest);
     SUITE_ADD_TEST(tests, twoWordsTest);
@@ -59,8 +61,12 @@ int main()
     SUITE_ADD_TEST(tests, multipleWordsDifferentLengthsTest);
     SUITE_ADD_TEST(tests, emptyStringTest);
 
-    TestSuiteRun(tests);
-    TestSuiteDelete(tests);
+    CuSuiteRun(tests);
+    CuSuiteSummary(tests, output);
+	CuSuiteDetails(tests, output);
+	printf("%s\n", output->buffer);
+    printf("Fail Count: %d\n", tests->failCount);
+    CuSuiteDelete(tests);
 
     return 0;
 }
