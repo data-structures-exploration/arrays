@@ -1,3 +1,6 @@
+#include "Test.c"
+#include "../merge-sorted-arrays.h"
+
 #define countof(a) (sizeof(a)/sizeof((a)[0]))
 
 void bothArraysAreEmptyTest(Test *tc)
@@ -59,6 +62,7 @@ void arraysAreDifferentLengthsTest(Test *tc)
 int main()
 {
     TestSuite *tests = TestSuiteNew();
+    String *output = StringNew();
 
     SUITE_ADD_TEST(tests, bothArraysAreEmptyTest);
     SUITE_ADD_TEST(tests, firstArrayIsEmptyTest);
@@ -67,6 +71,10 @@ int main()
     SUITE_ADD_TEST(tests, arraysAreDifferentLengthsTest);
 
     TestSuiteRun(tests);
+    TestSuiteSummary(tests, output);
+	TestSuiteDetails(tests, output);
+	printf("%s\n", output->buffer);
+    printf("Fail Count: %d\n", tests->failCount);
     TestSuiteDelete(tests);
 
     return 0;
