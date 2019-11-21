@@ -1,4 +1,5 @@
-// tests
+#include "lest.hpp"
+#include "../merge-sorted-arrays.hpp"
 
 const lest::test tests[] = {
     CASE("both vectors are empty") {
@@ -40,5 +41,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "\nAll tests passed!!!\n", EXIT_SUCCESS;
 }
