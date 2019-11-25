@@ -1,4 +1,5 @@
-// tests
+#include "Test.c"
+#include "../cafe-order-checker.h"
 
 #define countof(a) (sizeof(a)/sizeof((a)[0]))
 
@@ -65,6 +66,7 @@ void oneRegisterHasUnservedOrdersTest(Test *tc)
 int main()
 {
     TestSuite *tests = TestSuiteNew();
+	String *output = StringNew();
 
     SUITE_ADD_TEST(tests, bothRegistersHaveSameNumberOfOrdersTest);
     SUITE_ADD_TEST(tests, registersHaveDifferentLengthsTest);
@@ -74,8 +76,12 @@ int main()
     SUITE_ADD_TEST(tests, oneRegisterHasExtraOrdersTest);
     SUITE_ADD_TEST(tests, oneRegisterHasUnservedOrdersTest);
 
-    TestSuiteRun(tests);
-    TestSuiteDelete(tests);
+	TestSuiteRun(tests);
+	TestSuiteSummary(tests, output);
+	TestSuiteDetails(tests, output);
+	printf("%s\n", output->buffer);
+	printf("Fail Count: %d\n", tests->failCount);
+	TestSuiteDelete(tests);
 
     return 0;
 }
