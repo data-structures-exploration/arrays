@@ -1,4 +1,5 @@
-// tests
+#include "lest.hpp"
+#include "../cafe-order-checker.hpp"
 
 const lest::test tests[] = {
     CASE("both registers have same number of orders") {
@@ -54,5 +55,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
